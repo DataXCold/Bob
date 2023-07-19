@@ -1,0 +1,729 @@
+-- The best script for eternal boss
+-- Credit to r2o for all features!
+
+
+if not game:IsLoaded() then
+    game.Loaded:Wait()
+end
+
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "Eternal Bob | Coldster Hub", HidePremium = false, SaveConfig = true, IntroEnabled = true, IntroText = "Authorized!"})
+
+
+local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Files/Functions.lua"))()
+
+local function getGlove()
+    return game.Players.LocalPlayer.leaderstats.Glove.Value
+end
+
+---------- SHARED ------------
+shared.removeBlue()
+
+shared.chatPlr()
+
+----------- ANTI VOID ------------
+
+local Player = game.Players.LocalPlayer.Character.Name
+
+local AntiVoid = Instance.new("Part", workspace)
+
+	AntiVoid.Name = "AntiVoid"
+	AntiVoid.Size = Vector3.new(2047, 0.009, 2019)
+	AntiVoid.Position = Vector3.new(-80.5, -10.005, -246.5)
+	AntiVoid.CanCollide = false
+	AntiVoid.Anchored = true
+	AntiVoid.Transparency = 1
+	
+local arenaVoid = Instance.new("Part", workspace)
+
+	arenaVoid.Name = "arenaVoid"
+	arenaVoid.Size = Vector3.new(798, 1, 1290)
+	arenaVoid.Position = Vector3.new(3450, 59.009, 68)
+	arenaVoid.CanCollide = false
+	arenaVoid.Anchored = true
+	arenaVoid.Transparency = 1
+
+----------- ANTI CHEAT BYPASS -----------
+
+local Namecall
+Namecall = hookmetamethod(game, '__namecall', function(self, ...)
+   if getnamecallmethod() == 'FireServer' and tostring(self) == 'Ban' then
+       return
+   elseif getnamecallmethod() == 'FireServer' and tostring(self) == 'WalkSpeedChanged' then
+       return
+   elseif getnamecallmethod() == 'FireServer' and tostring(self) == 'AdminGUI' then
+       return
+   end
+   return Namecall(self, ...)
+end)
+
+
+
+local MasterAnakin = Window:MakeTab({
+	Name = "Local",
+	Icon = "nil",
+	PremiumOnly = false
+})
+
+local Section = MasterAnakin:AddSection({
+	Name = "Local Player"
+})
+
+
+MasterAnakin:AddTextbox({
+	Name = "(🏃‍♂️) WalkSpeed",
+	Default = "16",
+	TextDisappear = false,
+	Callback = function(WS)
+		game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WS
+        WS1 = WS
+	end	  
+})
+
+MasterAnakin:AddToggle({
+	Name = "Auto Set WalkSpeed",
+	Default = false,
+	Save = true,
+    Flag = "WalkSpeedSet",
+	Callback = function(bool)
+		autoSet1 = bool
+        if bool == true then
+            while autoSet1 do
+                task.wait()
+                local Character = workspace:WaitForChild(game.Players.LocalPlayer.Name)
+                if Character:FindFirstChild("Humanoid") ~= nil and Character.Humanoid.WalkSpeed ~= WS1 then
+                    Character:FindFirstChild("Humanoid").WalkSpeed = WS1
+                end
+            end
+        end
+	end    
+})
+
+MasterAnakin:AddTextbox({
+	Name = "(🤾‍♂️) JumpPower",
+	Default = "50",
+	TextDisappear = false,
+	Callback = function(JP)
+		game.Players.LocalPlayer.Character.Humanoid.JumpPower = JP
+        WS2 = JP
+	end	  
+})
+
+MasterAnakin:AddToggle({
+	Name = "Auto Set JumpPower",
+	Default = false,
+	Save = true,
+    Flag = "JumppowerSet",
+	Callback = function(bool)
+		autoSet2 = bool
+        if bool == true then
+            while autoSet2 do
+                task.wait()
+                local Character = workspace:WaitForChild(game.Players.LocalPlayer.Name)
+                if Character:FindFirstChild("Humanoid") ~= nil and Character.Humanoid.JumpPower ~= WS2 then
+                    Character:FindFirstChild("Humanoid").JumpPower = WS2
+                end
+            end
+        end
+	end    
+})
+
+MasterAnakin:AddLabel("Default Hip Height = 1")
+
+MasterAnakin:AddTextbox({
+	Name = "(🌠) Hip Height",
+	Default = "",
+	TextDisappear = false,
+	Callback = function(HT)
+		game.Players.LocalPlayer.Character.Humanoid.HipHeight = HT
+        WS3 = HT
+	end	  
+})
+
+MasterAnakin:AddToggle({
+	Name = "Auto Set Hip Height",
+	Default = false,
+	Save = true,
+    Flag = "HipHeightset",
+	Callback = function(bool)
+		autoSet3 = bool
+        if bool == true then
+            while autoSet3 do
+                task.wait()
+                local Character = workspace:WaitForChild(game.Players.LocalPlayer.Name)
+                if Character:FindFirstChild("Humanoid") ~= nil and Character.Humanoid.HipHeight ~= WS3 then
+                    Character:FindFirstChild("Humanoid").HipHeight  = WS3
+                end
+            end
+        end
+	end    
+})
+
+MasterAnakin:AddLabel("Default FOV = 70")
+
+MasterAnakin:AddTextbox({
+	Name = "(🎑) Field Of View (FOV)",
+	Default = "",
+	TextDisappear = false,
+	Callback = function(Value)
+		workspace.CurrentCamera.FieldOfView = Value
+	end	  
+})
+
+MasterAnakin:AddLabel("Default Gravity = 0")
+
+MasterAnakin:AddTextbox({
+	Name = "(🌎) Gravity",
+	Default = "",
+	TextDisappear = false,
+	Callback = function(Value)
+		game.Workspace.Gravity = Value
+	end	  
+})
+
+
+function rj()
+	OrionLib:MakeNotification({
+	Name = "Rejoining!",
+	Content = "Please wait....",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+end
+
+MasterAnakin:AddButton({
+	Name = "(🔄) Rejoin",
+	Callback = function()
+      		game:GetService("TeleportService"):Teleport(game.PlaceId)
+      		rj()
+  	end    
+})
+local KingEzmun = Window:MakeTab({
+	Name = "Main",
+	Icon = "nil",
+	PremiumOnly = false
+})
+
+KingEzmun:AddToggle({
+	Name = "(⚫) Anti-Void",
+	Default = false,
+	Save = true,
+    Flag = "AntiVoid",
+	Callback = function(state)
+		if state then
+	AntiVoid.CanCollide = true
+	AntiVoid.Anchored = true
+	AntiVoid.Transparency = 0.5
+    else
+
+	AntiVoid.CanCollide = false
+	AntiVoid.Anchored = true
+	AntiVoid.Transparency = 1
+    end
+	end    
+})
+
+KingEzmun:AddToggle({
+	Name = "(⚫) Anti Void [ 2.0 ]",
+	Default = false,
+	Save = true,
+    Flag = "AntiVoidAnakin",
+	Callback = function(Value)
+		
+        if Value == true then
+            
+            for i,v in pairs(game.Workspace:GetDescendants()) do
+                
+                if v.Name == "dedBarrier"  or v.Name == "ArenaBarrier" or v.Name == "DEATHBARRIER" or v.Name == "DEATHBARRIER2" then
+           
+                    if v.CanCollide == false then
+               
+                        v.CanCollide = true
+                        
+                        v.Material = "ForceField"
+                        
+                        v.Color = Color3.new(255,255,255)
+                        
+                        v.Transparency = .9
+               
+                    end
+           
+                end
+                
+            end
+            
+            else
+                
+            for i,v in pairs(game.Workspace:GetDescendants()) do
+                
+                if v.Name == "dedBarrier"  or v.Name == "ArenaBarrier" or v.Name == "DEATHBARRIER" or v.Name == "DEATHBARRIER2" then
+           
+                    if v.CanCollide == true then
+               
+                        v.CanCollide = false
+                        
+                        v.Transparency = 1
+               
+                    end
+           
+                end
+                
+            end
+        
+        end
+	end    
+})
+
+KingEzmun:AddTextbox({
+	Name = "(🤚) Glove Reach",
+	Default = "",
+	TextDisappear = false,
+	Callback = function(bool)
+if shared.SizeGlove == nil then
+   shared.SizeGlove = bool
+end
+
+if setfpscap then
+    setfpscap(60)
+end
+
+function supaSiza(v)
+   if v:IsA("Tool") then
+       v.Glove.Transparency = 1
+       v.Glove.Size = Vector3.new(shared.SizeGlove, shared.SizeGlove, shared.SizeGlove)
+   end
+end
+
+game.Players.LocalPlayer.Character.ChildAdded:Connect(supaSiza)
+
+game.Players.LocalPlayer.CharacterAdded:Connect(function(char)
+   char.ChildAdded:Connect(supaSiza)
+end)
+	end	  
+})
+
+KingEzmun:AddTextbox({
+	Name = "(🎯) Hitbox [ Reach ]",
+	Default = "",
+	TextDisappear = false,
+	Callback = function(Value)
+if shared.Size == nil then
+    shared.Size = Value
+end
+
+if setfpscap then
+    setfpscap(1269)
+end
+
+for i,x in pairs(game.Players:GetPlayers()) do
+    if x ~= game.Players.LocalPlayer and x.Character ~= nil and x.Character:FindFirstChild("HumanoidRootPart") then
+        x.Character:WaitForChild("HumanoidRootPart").Size = Vector3.new(shared.Size, shared.Size, shared.Size) 
+        x.Character:WaitForChild("HumanoidRootPart").Color = Color3.fromRGB(0, 255, 255)
+        x.Character:WaitForChild("HumanoidRootPart").Material = "Neon"
+        x.Character:WaitForChild("HumanoidRootPart").Transparency = .9
+        task.wait(.1)
+            x.CharacterAdded:Connect(function(x)
+                repeat task.wait() until x:FindFirstChild("HumanoidRootPart")
+                task.wait(.35)
+                x.HumanoidRootPart.Size =  Vector3.new(shared.Size, shared.Size, shared.Size)
+                x.HumanoidRootPart.Color = Color3.fromRGB(0, 255, 255)
+                x.HumanoidRootPart.Material = "Neon"
+                x.HumanoidRootPart.Transparency = .9
+            end)
+    end
+end
+
+game.Players.PlayerAdded:Connect(function(Child)
+    Child.CharacterAdded:Connect(function(x)
+        repeat task.wait() until x:FindFirstChild("HumanoidRootPart")
+        task.wait(.35)
+        x.HumanoidRootPart.Size = Vector3.new(shared.Size, shared.Size, shared.Size) 
+        x.HumanoidRootPart.Color = Color3.fromRGB(0, 255, 255)
+        x.HumanoidRootPart.Material = "Neon"
+        x.HumanoidRootPart.Transparency = .9
+    end)
+end)
+	end	  
+})
+
+
+
+KingEzmun:AddToggle({
+	Name = "(🏷) Auto Remove Nametag",
+	Default = false,
+	Save = true,
+    Flag = "RemoveNameTag",
+	Callback = function(bool)
+		 
+        Auto_Remove = bool
+        
+        if bool == true then
+        
+        game.Players.LocalPlayer.Character:FindFirstChild("Head").Nametag.TextLabel:Destroy()
+            
+            task.wait()
+            
+            game.Players.LocalPlayer.CharacterAdded:Connect(function()
+                
+                if Auto_Remove == true then
+                    
+                repeat task.wait()
+                    
+                until game.Players.LocalPlayer.Character:FindFirstChild("Head")
+                
+                game.Players.LocalPlayer.Character:FindFirstChild("Head").Nametag.TextLabel:Destroy()
+                    
+                end
+                
+            end)
+    
+        end
+        
+	end    
+})
+
+
+function infJump()
+	OrionLib:MakeNotification({
+	Name = "Infinite jump is activated!",
+	Content = "You're now can jump in the air!",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+end
+KingEzmun:AddButton({
+	Name = "(♾) Infinite Jump",
+	Callback = function()
+      		local InfiniteJumpEnabled = true
+game:GetService("UserInputService").JumpRequest:connect(function()
+	if InfiniteJumpEnabled then
+		game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Jumping")
+	end
+end)
+infJump()
+  	end    
+})
+
+
+KingEzmun:AddButton({
+	Name = "(🔮) Teleport tool",
+	Callback = function()
+local plr = game:GetService("Players").LocalPlayer
+local mouse = plr:GetMouse()
+
+local tool = Instance.new("Tool")
+tool.RequiresHandle = false
+tool.Name = "Click Teleport"
+
+tool.Activated:Connect(function()
+local root = plr.Character.HumanoidRootPart
+local pos = mouse.Hit.Position+Vector3.new(0,2.5,0)
+local offset = pos-root.Position
+root.CFrame = root.CFrame+offset
+end)
+
+tool.Parent = plr.Backpack
+  	end    
+})
+
+MasterAnakin:AddButton({
+	Name = "(🔀) Serverhop",
+	Callback = function()
+for _, server in ipairs(game.HttpService:JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
+    if server.playing < server.maxPlayers and server.JobId ~= game.JobId then
+        game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, server.id)
+    end
+end
+	end
+})
+
+
+function antiAfk()
+	OrionLib:MakeNotification({
+	Name = "Activated!",
+	Content = "Anti AFK is activated successfully!",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+
+end
+MasterAnakin:AddButton({
+	Name = "(🔥) Anti AFK",
+	Callback = function()
+      		local GC = getconnections or get_signal_cons
+local Players = game:GetService("Players")
+if GC then
+    for i, v in pairs(GC(Players.LocalPlayer.Idled)) do
+        if v["Disable"] then
+            v["Disable"](v)
+        elseif v["Disconnect"] then
+            v["Disconnect"](v)
+        end
+    end
+else
+    Players.LocalPlayer.Idled:Connect(
+        function()
+            VirtualUser:CaptureController()
+            VirtualUser:ClickButton2(Vector2.new())
+        end
+    )
+end
+antiAfk()
+  	end    
+})
+
+function antiLag()
+	OrionLib:MakeNotification({
+	Name = "Boosting FPS!",
+	Content = "Fps booster is running successfully!",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+end
+
+MasterAnakin:AddButton({
+	Name = "(⚡) FPS Booster",
+	Callback = function()
+      		loadstring(game:HttpGet("https://pastebin.com/raw/zJztwUg1"))()
+      		antiLag()
+  	end    
+})
+
+local neptunetia = Window:MakeTab({
+	Name = "Admin",
+	Icon = "nil",
+	PremiumOnly = false
+})
+
+neptunetia:AddButton({
+	Name = "Infinite Yield",
+	Callback = function()
+      		loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+  	end    
+})
+
+neptunetia:AddButton({
+	Name = "Nameless Admin",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/FilteringEnabled/NamelessAdmin/main/Source"))();
+  	end    
+})
+
+function fb()
+	OrionLib:MakeNotification({
+	Name = "Fullbright Loaded!",
+	Content = "No more dark spots!",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+end
+
+local Light = game:GetService("Lighting")
+
+function dofullbright()
+
+Light.Ambient = Color3.new(1, 1, 1)
+
+Light.ColorShift_Bottom = Color3.new(1, 1, 1)
+
+Light.ColorShift_Top = Color3.new(1, 1, 1)
+
+end
+
+Light.LightingChanged:Connect(dofullbright)
+
+MasterAnakin:AddButton({
+	Name = "(💡) Fullbright",
+	Callback = function()
+      		dofullbright()
+      		fb()
+  	end    
+})
+
+KingEzmun:AddToggle({
+	Name = "(🔥) Slap Aura [ All Glove ] [ RISK ]",
+	Default = false,
+	Callback = function(bool)
+		
+        getgenv().SlapAura = bool
+
+            if bool == true then
+
+                while getgenv().SlapAura do
+
+                    task.wait()
+                        
+                        pcall(function()
+                            
+                        for Index, Player in next, game.Players:GetPlayers() do
+                            
+                            if Player ~= game.Players.LocalPlayer and Player.Character and Player.Character:FindFirstChild("entered") then
+                                
+                                if Player.Character:FindFirstChild("Head") then
+                                    
+                                if Player.Character.Head:FindFirstChild("UnoReverseCard") == nil and Player.Character:FindFirstChild("rock") == nil then
+                                    
+                                    if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(Player.UserId) then
+
+                                    local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Player.Character.HumanoidRootPart.Position).Magnitude
+                                    
+                                    if 50 >= Magnitude then
+                                        
+                                        shared.gloveHits[getGlove()]:FireServer(Player.Character:WaitForChild("Head"))
+                                        
+                                end
+                                    
+                                    end
+                            end
+                                
+                                end
+                        end
+                        
+                        end
+                    end)
+                end
+                
+            end
+	end    
+})
+
+KingEzmun:AddToggle({
+	Name = "(🚫) Anti Reaper",
+	Default = false,
+	Save = true,
+    Flag = "AntiReaper",
+	Callback = function(bool)
+	
+		getgenv().AntiReaper = bool
+        
+        if bool == true then
+            
+            while getgenv().AntiReaper do
+            
+                task.wait()
+            
+                for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+
+                    if v.Name == "DeathMark" then
+
+                    game:GetService("ReplicatedStorage").ReaperGone:FireServer(game:GetService("Players").LocalPlayer.Character.DeathMark)
+
+                    game:GetService("Lighting"):WaitForChild("DeathMarkColorCorrection"):Destroy() 
+
+                    end 
+        
+                end
+            
+            end
+            
+        end
+	end    
+})
+
+KingEzmun:AddButton({
+	Name = "(🦸‍♂️) Mobile Fly",
+	Callback = function()
+      		loadstring(game:HttpGet("https://raw.githubusercontent.com/DataXCold/Fly/Source/Main"))()
+  	end    
+})
+
+local Coldsta = Window:MakeTab({
+	Name = "Credits",
+	Icon = "nil",
+	PremiumOnly = false
+})
+
+Coldsta:AddLabel("Made by")
+
+Coldsta:AddButton({
+	Name = "Coldster#3759",
+	Callback = function()
+        if setclipboard then
+            setclipboard("Coldster#3759")
+            OrionLib:MakeNotification({
+                 Name = "Copied Successfully!",
+                 Content = "Discord Friends?",
+                 Image = "rbxassetid://7733734762",
+                 Time = 5
+            })
+        end
+  	end    
+})
+
+Coldsta:AddButton({
+	Name = "(🔴) YouTube : Coldster",
+	Callback = function()
+      	if setclipboard then
+            setclipboard("www.youtube.com/@Coldster?sub_confirmation=1")
+            OrionLib:MakeNotification({
+                 Name = "Copied Successfully!",
+                 Content = "Paste it on your browser!",
+                 Image = "rbxassetid://7733734762",
+                 Time = 5
+            })
+        end
+  	end    
+})
+
+
+Coldsta:AddButton({
+	Name = "(💬) Discord : Coldster Hub",
+	Callback = function()
+      	if setclipboard then
+            setclipboard("https://discord.gg/4EbnAbXDPY")
+            OrionLib:MakeNotification({
+                 Name = "Copied Successfully!",
+                 Content = "Open Discord & paste the link there!",
+                 Image = "rbxassetid://7733734762",
+                 Time = 5
+            })
+        end
+  	end    
+})
+
+Coldsta:AddButton({
+	Name = "(🌐) My Website",
+	Callback = function()
+      	if setclipboard then
+            setclipboard("https://coldster-scripts.com/")
+            OrionLib:MakeNotification({
+                 Name = "Copied Successfully!",
+                 Content = "Paste it on your browser!",
+                 Image = "rbxassetid://7733734762",
+                 Time = 5
+            })
+        end
+  	end    
+})
+
+
+KingEzmun:AddToggle({
+	Name = "(👁) Auto Hit Bob",
+	Default = false,
+	Callback = function(v)
+		while v == true do
+			while task.wait(0.1) do
+				local Event = game:GetService("Workspace").bobBoss.DamageEvent Event:FireServer()
+			end
+		end
+	end    
+})
+
+
+
+KingEzmun:AddToggle({
+	Name = "(🧱) Auto Tycoon",
+	Default = false,
+	Callback = function(Value)
+		while Value == true do
+			while task.wait() do
+    for i,v in pairs(workspace:GetDescendants()) do
+        if v.Name == "Click" and v:FindFirstChild("ClickDetector") then
+            fireclickdetector(v.ClickDetector)
+        end
+    end
+end
+		end
+	end    
+})
+
