@@ -19,7 +19,7 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false
 })
 
-_G.Key = "BobFeet_NlIyNzbTRl"
+_G.Key = "BobFeet_cW3fhHx4oS"
 _G.KeyInput = "string"
 
 function MakeScriptHub()
