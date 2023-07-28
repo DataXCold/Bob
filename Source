@@ -1,4 +1,11 @@
 
+if not game:IsLoaded() then
+    game.Loaded:Wait()
+end
+
+
+
+
 setclipboard("https://link-target.net/539131/eternal-bob-boss-fight")
 
 
