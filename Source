@@ -32,4 +32,4 @@ Library:Notification({
 
 
 wait(5)
-game.Players.LocalPlayer:Kick("OLD SCRIPT Detected 🔥")
+game.Players.LocalPlayer:Kick("Execute source script? Ohhh You're boykisser!💀")
