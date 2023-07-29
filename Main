@@ -1,3 +1,5 @@
+setclipboard("https://link-hub.net/539131/eternal-bob-key3")
+
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/bloodball/-back-ups-for-libs/main/Revenant", true))()
 Library.DefaultColor = Color3.fromRGB(0,255,0)
 
