@@ -1,0 +1,751 @@
+local Rayfield = loadstring(game:HttpGet('https://sirius.menu/rayfield'))()
+
+local Window = Rayfield:CreateWindow({
+   Name = "B👁SS FIGHT",
+   LoadingTitle = "Eternal Bob Loader",
+   LoadingSubtitle = "by https://coldster-scripts.com/",
+   ConfigurationSaving = {
+      Enabled = false,
+      FolderName = nil, -- Create a custom folder for your hub/game
+      FileName = "discord.gg/4EbnAbXDPY"
+   },
+   Discord = {
+      Enabled = true,
+      Invite = "4EbnAbXDPY", -- The Discord invite code, do not include discord.gg/. E.g. discord.gg/ABCD would be ABCD
+      RememberJoins = true -- Set this to false to make them join the discord every time they load it up
+   },
+   KeySystem = false, -- Set this to true to use our key system
+   KeySettings = {
+      Title = "Untitled",
+      Subtitle = "Key System",
+      Note = "No method of obtaining the key is provided",
+      FileName = "Key", -- It is recommended to use something unique as other scripts using Rayfield may overwrite your key file
+      SaveKey = true, -- The user's key will be saved, but if you change the key, they will be unable to use your script
+      GrabKeyFromSite = false, -- If this is true, set Key below to the RAW site you would like Rayfield to get the key from
+      Key = {"Hello"} -- List of keys that will be accepted by the system, can be RAW file links (pastebin, github etc) or simple strings ("hello","key22")
+   }
+})
+
+local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Files/Functions.lua"))()
+
+local function getGlove()
+    return game.Players.LocalPlayer.leaderstats.Glove.Value
+end
+
+---------- SHARED ------------
+shared.removeBlue()
+
+shared.chatPlr()
+
+----------- ANTI VOID ------------
+
+local Player = game.Players.LocalPlayer.Character.Name
+
+local AntiVoid = Instance.new("Part", workspace)
+
+	AntiVoid.Name = "AntiVoid"
+	AntiVoid.Size = Vector3.new(2047, 0.009, 2019)
+	AntiVoid.Position = Vector3.new(-80.5, -10.005, -246.5)
+	AntiVoid.CanCollide = false
+	AntiVoid.Anchored = true
+	AntiVoid.Transparency = 1
+	
+local arenaVoid = Instance.new("Part", workspace)
+
+	arenaVoid.Name = "arenaVoid"
+	arenaVoid.Size = Vector3.new(798, 1, 1290)
+	arenaVoid.Position = Vector3.new(3450, 59.009, 68)
+	arenaVoid.CanCollide = false
+	arenaVoid.Anchored = true
+	arenaVoid.Transparency = 1
+
+----------- ANTI CHEAT BYPASS -----------
+
+local Namecall
+Namecall = hookmetamethod(game, '__namecall', function(self, ...)
+   if getnamecallmethod() == 'FireServer' and tostring(self) == 'Ban' then
+       return
+   elseif getnamecallmethod() == 'FireServer' and tostring(self) == 'WalkSpeedChanged' then
+       return
+   elseif getnamecallmethod() == 'FireServer' and tostring(self) == 'AdminGUI' then
+       return
+   end
+   return Namecall(self, ...)
+end)
+
+
+
+
+Rayfield:Notify({
+   Title = "Welcome",
+   Content = "Remember R2O still On Top!",
+   Duration = 6.5,
+   Image = 4483362458,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Yes!",
+         Callback = function()
+         print("The user tapped Okay!")
+      end
+   },
+},
+})
+
+------------------------ LOCAL PLAYERS TAB ------------------------
+
+
+local MasterAnakin = Window:CreateTab("👤Local", nil) -- Title, Image
+local Section = MasterAnakin:CreateSection("Players")
+
+local Input = MasterAnakin:CreateInput({
+   Name = "WalkSpeed",
+   PlaceholderText = "16",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(WS)
+   game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = WS
+   end,
+})
+
+local Input = MasterAnakin:CreateInput({
+   Name = "JumpPower",
+   PlaceholderText = "50",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(JP)
+   game.Players.LocalPlayer.Character.Humanoid.JumpPower = JP
+   end,
+})
+
+local Input = MasterAnakin:CreateInput({
+   Name = "Hip Height",
+   PlaceholderText = "0",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(HT)
+   game.Players.LocalPlayer.Character.Humanoid.HipHeight = HT
+   end,
+})
+
+local Input = MasterAnakin:CreateInput({
+   Name = "Gravity",
+   PlaceholderText = "196",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(G)
+   game.Workspace.Gravity = G
+   end,
+})
+
+local Slider = MasterAnakin:CreateSlider({
+   Name = "Field Of View (FOV)",
+   Range = {30, 120},
+   Increment = 5,
+   Suffix = "FOV",
+   CurrentValue = 70,
+   Flag = "FieldOfView", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(FOV)
+   workspace.CurrentCamera.FieldOfView = FOV
+   end,
+})
+
+local Section = MasterAnakin:CreateSection("Others")
+
+function rj()
+	Rayfield:Notify({
+   Title = "Rejoining!",
+   Content = "Please wait....",
+   Duration = 5,
+   Image = 4483362458,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Okay!",
+         Callback = function()
+         print("The user tapped Okay!")
+      end
+   },
+},
+})
+end
+
+local Button = MasterAnakin:CreateButton({
+   Name = "(🔄) Rejoin",
+   Callback = function()
+   game:GetService("TeleportService"):Teleport(game.PlaceId)
+      		rj()
+   end,
+})
+
+function infJump()
+	Rayfield:Notify({
+   Title = "Infinite jump is activated!",
+   Content = "You're now can jump in the air!",
+   Duration = 5,
+   Image = 4483362458,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Okay!",
+         Callback = function()
+         print("The user tapped Okay!")
+      end
+   },
+},
+})
+end
+
+local Button = MasterAnakin:CreateButton({
+   Name = "(♾) Infinite Jump",
+   Callback = function()
+   local InfiniteJumpEnabled = true
+game:GetService("UserInputService").JumpRequest:connect(function()
+	if InfiniteJumpEnabled then
+		game:GetService"Players".LocalPlayer.Character:FindFirstChildOfClass'Humanoid':ChangeState("Jumping")
+	end
+end)
+infJump()
+   end,
+})
+
+local Button = MasterAnakin:CreateButton({
+   Name = "(🔮) Teleport tool",
+   Callback = function()
+   local plr = game:GetService("Players").LocalPlayer
+local mouse = plr:GetMouse()
+
+local tool = Instance.new("Tool")
+tool.RequiresHandle = false
+tool.Name = "Click Teleport"
+
+tool.Activated:Connect(function()
+local root = plr.Character.HumanoidRootPart
+local pos = mouse.Hit.Position+Vector3.new(0,2.5,0)
+local offset = pos-root.Position
+root.CFrame = root.CFrame+offset
+end)
+
+tool.Parent = plr.Backpack
+   end,
+})
+
+function shop()
+	Rayfield:Notify({
+   Title = "Serverhopping!",
+   Content = "Please wait..",
+   Duration = 6.5,
+   Image = 4483362458,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Okay!",
+         Callback = function()
+         print("The user tapped Okay!")
+      end
+   },
+},
+})
+end
+
+
+
+
+local Button = MasterAnakin:CreateButton({
+   Name = "(🔀) Serverhop",
+   Callback = function()
+   for _, server in ipairs(game.HttpService:JSONDecode(game:HttpGetAsync("https://games.roblox.com/v1/games/" .. game.PlaceId .. "/servers/Public?sortOrder=Asc&limit=100")).data) do
+    if server.playing < server.maxPlayers and server.JobId ~= game.JobId then
+        game:GetService("TeleportService"):TeleportToPlaceInstance(game.PlaceId, server.id)
+    end
+end
+shop()
+   end,
+})
+
+function antiAfk()
+	Rayfield:Notify({
+   Title = "Activated!",
+   Content = "Anti AFK is activated successfully!",
+   Duration = 5,
+   Image = 4483362458,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Okay!",
+         Callback = function()
+         print("The user tapped Okay!")
+      end
+   },
+},
+})
+end
+
+
+
+local Button = MasterAnakin:CreateButton({
+   Name = "(🔥) Anti AFK",
+   Callback = function()
+   local GC = getconnections or get_signal_cons
+local Players = game:GetService("Players")
+if GC then
+    for i, v in pairs(GC(Players.LocalPlayer.Idled)) do
+        if v["Disable"] then
+            v["Disable"](v)
+        elseif v["Disconnect"] then
+            v["Disconnect"](v)
+        end
+    end
+else
+    Players.LocalPlayer.Idled:Connect(
+        function()
+            VirtualUser:CaptureController()
+            VirtualUser:ClickButton2(Vector2.new())
+        end
+    )
+end
+antiAfk()
+   end,
+})
+
+function antiLag()
+	Rayfield:Notify({
+   Title = "Boosting FPS!",
+   Content = "Boosting FPS!",
+   Duration = 5,
+   Image = 4483362458,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Okay!",
+         Callback = function()
+         setfpscap(9999999)
+      end
+   },
+},
+})
+end
+
+
+local Button = MasterAnakin:CreateButton({
+   Name = "(⚡) FPS Booster",
+   Callback = function()
+   loadstring(game:HttpGet("https://pastebin.com/raw/zJztwUg1"))()
+   antiLag()
+   end,
+})
+
+function fb()
+	Rayfield:Notify({
+   Title = "Fullbright Loaded!",
+   Content = "No more dark spots!",
+   Duration = 5,
+   Image = 4483362458,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Okay!",
+         Callback = function()
+         print("The user tapped Okay!")
+      end
+   },
+},
+})
+end
+
+local Light = game:GetService("Lighting")
+function dofullbright()
+	Light.Ambient = Color3.new(1, 1, 1)
+	Light.ColorShift_Bottom = Color3.new(1, 1, 1)
+	Light.ColorShift_Top = Color3.new(1, 1, 1)
+end
+
+Light.LightingChanged:Connect(dofullbright)
+
+local Button = MasterAnakin:CreateButton({
+   Name = "(💡) Fullbright",
+   Callback = function()
+   dofullbright()
+      		fb()
+   end,
+})
+
+local Keybind = MasterAnakin:CreateKeybind({
+   Name = "(⚡) Speed Boost",
+   CurrentKeybind = "Q",
+   HoldToInteract = true,
+   Flag = "Keybind1", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Keybind)
+   	game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = 50
+   end,
+})
+
+------------------------ MAIN TAB ------------------------
+
+local KingEzmun = Window:CreateTab("🗡Main", nil) -- Title, Image
+
+local Toggle = KingEzmun:CreateToggle({
+   Name = "(⚫) Anti-Void",
+   CurrentValue = false,
+   Flag = "AntiVoid", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(state)
+   if state then
+	AntiVoid.CanCollide = true
+	AntiVoid.Anchored = true
+	AntiVoid.Transparency = 0.5
+    else
+
+	AntiVoid.CanCollide = false
+	AntiVoid.Anchored = true
+	AntiVoid.Transparency = 1
+    end
+   end,
+})
+
+local Toggle = KingEzmun:CreateToggle({
+   Name = "(⚫) Anti Void [ 2.0 ]",
+   CurrentValue = false,
+   Flag = "AntiVoidAnakin", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+   
+        if Value == true then
+            
+            for i,v in pairs(game.Workspace:GetDescendants()) do
+                
+                if v.Name == "dedBarrier"  or v.Name == "ArenaBarrier" or v.Name == "DEATHBARRIER" or v.Name == "DEATHBARRIER2" then
+           
+                    if v.CanCollide == false then
+               
+                        v.CanCollide = true
+                        
+                        v.Material = "ForceField"
+                        
+                        v.Color = Color3.new(255,255,255)
+                        
+                        v.Transparency = .9
+               
+                    end
+           
+                end
+                
+            end
+            
+            else
+                
+            for i,v in pairs(game.Workspace:GetDescendants()) do
+                
+                if v.Name == "dedBarrier"  or v.Name == "ArenaBarrier" or v.Name == "DEATHBARRIER" or v.Name == "DEATHBARRIER2" then
+           
+                    if v.CanCollide == true then
+               
+                        v.CanCollide = false
+                        
+                        v.Transparency = 1
+               
+                    end
+           
+                end
+                
+            end
+        
+        end
+   end,
+})
+
+local Input = KingEzmun:CreateInput({
+   Name = "(🤚) Glove Reach",
+   PlaceholderText = "",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(bool)
+   if shared.SizeGlove == nil then
+   shared.SizeGlove = bool
+end
+
+if setfpscap then
+    setfpscap(60)
+end
+
+function supaSiza(v)
+   if v:IsA("Tool") then
+       v.Glove.Transparency = 1
+       v.Glove.Size = Vector3.new(shared.SizeGlove, shared.SizeGlove, shared.SizeGlove)
+   end
+end
+
+game.Players.LocalPlayer.Character.ChildAdded:Connect(supaSiza)
+
+game.Players.LocalPlayer.CharacterAdded:Connect(function(char)
+   char.ChildAdded:Connect(supaSiza)
+end)
+   end,
+})
+
+local Input = KingEzmun:CreateInput({
+   Name = "(🎯) Hitbox [ Reach ]",
+   PlaceholderText = "",
+   RemoveTextAfterFocusLost = false,
+   Callback = function(Value)
+   if shared.Size == nil then
+    shared.Size = Value
+end
+
+if setfpscap then
+    setfpscap(1269)
+end
+
+for i,x in pairs(game.Players:GetPlayers()) do
+    if x ~= game.Players.LocalPlayer and x.Character ~= nil and x.Character:FindFirstChild("HumanoidRootPart") then
+        x.Character:WaitForChild("HumanoidRootPart").Size = Vector3.new(shared.Size, shared.Size, shared.Size) 
+        x.Character:WaitForChild("HumanoidRootPart").Color = Color3.fromRGB(0, 255, 255)
+        x.Character:WaitForChild("HumanoidRootPart").Material = "Neon"
+        x.Character:WaitForChild("HumanoidRootPart").Transparency = .9
+        task.wait(.1)
+            x.CharacterAdded:Connect(function(x)
+                repeat task.wait() until x:FindFirstChild("HumanoidRootPart")
+                task.wait(.35)
+                x.HumanoidRootPart.Size =  Vector3.new(shared.Size, shared.Size, shared.Size)
+                x.HumanoidRootPart.Color = Color3.fromRGB(0, 255, 255)
+                x.HumanoidRootPart.Material = "Neon"
+                x.HumanoidRootPart.Transparency = .9
+            end)
+    end
+end
+
+game.Players.PlayerAdded:Connect(function(Child)
+    Child.CharacterAdded:Connect(function(x)
+        repeat task.wait() until x:FindFirstChild("HumanoidRootPart")
+        task.wait(.35)
+        x.HumanoidRootPart.Size = Vector3.new(shared.Size, shared.Size, shared.Size) 
+        x.HumanoidRootPart.Color = Color3.fromRGB(0, 255, 255)
+        x.HumanoidRootPart.Material = "Neon"
+        x.HumanoidRootPart.Transparency = .9
+    end)
+end)
+   end,
+})
+
+local Toggle = KingEzmun:CreateToggle({
+   Name = "(🏷) Auto Remove Nametag",
+   CurrentValue = false,
+   Flag = "RemoveNameTag", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(bool)
+   
+        Auto_Remove = bool
+        
+        if bool == true then
+        
+        game.Players.LocalPlayer.Character:FindFirstChild("Head").Nametag.TextLabel:Destroy()
+            
+            task.wait()
+            
+            game.Players.LocalPlayer.CharacterAdded:Connect(function()
+                
+                if Auto_Remove == true then
+                    
+                repeat task.wait()
+                    
+                until game.Players.LocalPlayer.Character:FindFirstChild("Head")
+                
+                game.Players.LocalPlayer.Character:FindFirstChild("Head").Nametag.TextLabel:Destroy()
+                    
+                end
+                
+            end)
+    
+        end
+        
+   end,
+})
+
+local Toggle = KingEzmun:CreateToggle({
+   Name = "(🔥) Slap Aura [ All Glove ] [ RISK ]",
+   CurrentValue = false,
+   Flag = "SlapAura", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(bool)
+   
+        getgenv().SlapAura = bool
+
+if bool then
+    while getgenv().SlapAura do
+        task.wait()
+        
+        pcall(function()
+            for _, Player in ipairs(game.Players:GetPlayers()) do
+                if Player ~= game.Players.LocalPlayer and Player.Character and Player.Character:FindFirstChild("entered") then
+                    if Player.Character:FindFirstChild("Head") then
+                        if Player.Character.Head:FindFirstChild("UnoReverseCard") == nil and Player.Character:FindFirstChild("rock") == nil then
+                            if game.Players.LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and not game.Players.LocalPlayer:IsFriendsWith(Player.UserId) then
+                                local Magnitude = (game.Players.LocalPlayer.Character.HumanoidRootPart.Position - Player.Character.HumanoidRootPart.Position).Magnitude
+                                if 50 >= Magnitude then
+                                    shared.gloveHits[getGlove()]:FireServer(Player.Character:WaitForChild("Head"))
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+        end)
+    end
+end
+
+   end,
+})
+
+local Toggle = KingEzmun:CreateToggle({
+   Name = "(🚫) Anti Reaper",
+   CurrentValue = false,
+   Flag = "AntiReaper", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(bool)
+   
+		getgenv().AntiReaper = bool
+        
+        if bool == true then
+            
+            while getgenv().AntiReaper do
+            
+                task.wait()
+            
+                for i,v in pairs(game.Players.LocalPlayer.Character:GetChildren()) do
+
+                    if v.Name == "DeathMark" then
+
+                    game:GetService("ReplicatedStorage").ReaperGone:FireServer(game:GetService("Players").LocalPlayer.Character.DeathMark)
+
+                    game:GetService("Lighting"):WaitForChild("DeathMarkColorCorrection"):Destroy() 
+
+                    end 
+        
+                end
+            
+            end
+            
+        end
+   end,
+})
+
+local Toggle = KingEzmun:CreateToggle({
+   Name = "(👁) Auto Hit Bob",
+   CurrentValue = false,
+   Flag = "HitBob", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(v)
+   while v == true do
+			while task.wait(0.1) do
+				local Event = game:GetService("Workspace").bobBoss.DamageEvent Event:FireServer()
+			end
+		end
+   end,
+})
+
+local Toggle = KingEzmun:CreateToggle({
+   Name = "(🧱) Auto Tycoon",
+   CurrentValue = false,
+   Flag = "AutoTycoon", -- A flag is the identifier for the configuration file, make sure every element has a different flag if you're using configuration saving to ensure no overlaps
+   Callback = function(Value)
+   while Value == true do
+			while task.wait() do
+    for i,v in pairs(workspace:GetDescendants()) do
+        if v.Name == "Click" and v:FindFirstChild("ClickDetector") then
+            fireclickdetector(v.ClickDetector)
+        end
+    end
+end
+		end
+   end,
+})
+
+------------------------ ADMIN TAB ------------------------
+
+local InkChara = Window:CreateTab("🛠Admin", nil) -- Title, Image
+
+local Button = InkChara:CreateButton({
+   Name = "Infinite Yield",
+   Callback = function()
+   loadstring(game:HttpGet(('https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source'),true))()
+   end,
+})
+
+local Button = InkChara:CreateButton({
+   Name = "Nameless Admin",
+   Callback = function()
+   loadstring(game:HttpGet("https://raw.githubusercontent.com/FilteringEnabled/NamelessAdmin/main/Source"))();
+   end,
+})
+
+------------------------ CREDITS TAB ------------------------
+
+function CopiedLink()
+	Rayfield:Notify({
+   Title = "Copied Successfully!",
+   Content = "Paste it on your browser!",
+   Duration = 6.5,
+   Image = 4483362458,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Okay!",
+         Callback = function()
+         print("The user tapped Okay!")
+      end
+   },
+},
+})
+end
+
+function CopiedLink1()
+	Rayfield:Notify({
+   Title = "Copied Successfully!",
+   Content = "Discord Friends?",
+   Duration = 5,
+   Image = 4483362458,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Okay!",
+         Callback = function()
+         print("The user tapped Okay!")
+      end
+   },
+},
+})
+end
+
+function CopiedLink2()
+	Rayfield:Notify({
+   Title = "Copied Successfully!",
+   Content = "Paste it on your browser/discord!",
+   Duration = 6.5,
+   Image = 4483362458,
+   Actions = { -- Notification Buttons
+      Ignore = {
+         Name = "Okay!",
+         Callback = function()
+         print("The user tapped Okay!")
+      end
+   },
+},
+})
+end
+
+local Ammar = Window:CreateTab("🔰Credits", nil) -- Title, Image
+
+local Label = Ammar:CreateLabel("Made by Coldster#3759")
+
+local Button = Ammar:CreateButton({
+   Name = "Coldster#3759",
+   Callback = function()
+            setclipboard("Coldster#3759")
+			CopiedLink1()
+   end,
+})
+
+local Button = Ammar:CreateButton({
+   Name = "(🔴) YouTube : Coldster",
+   Callback = function()
+            setclipboard("www.youtube.com/@Coldster?sub_confirmation=1")
+            CopiedLink()
+   end,
+})
+
+local Button = Ammar:CreateButton({
+   Name = "(💬) Discord : Coldster Hub",
+   Callback = function()
+            setclipboard("https://discord.gg/4EbnAbXDPY")
+            CopiedLink2()
+   end,
+})
+
+local Button = Ammar:CreateButton({
+   Name = "(🌐) My Website",
+   Callback = function()
+            setclipboard("https://coldster-scripts.com/")
+            CopiedLink()
+   end,
+})
+
