@@ -26,6 +26,7 @@ local Window = Rayfield:CreateWindow({
    }
 })
 
+local Gloves = loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Files/Gloves.lua"))()
 local Functions = loadstring(game:HttpGet("https://raw.githubusercontent.com/cheesynob39/R2O/main/Files/Functions.lua"))()
 
 local function getGlove()
